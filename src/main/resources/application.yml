@@ -1,0 +1,16 @@
+
+chaos:
+  loris:
+    url: http://chaos-loris.cw-vdr-api.elpaaso.net/
+    organizations:
+      system_domain:
+        guid: 0123-0123-0123-0123
+        spaces:
+          elpaaso-sandbox:
+          guid: 1234-1234-1234-1234
+          applications:
+            elpaaso-sandbox-service:
+              guid: 2345-2345-2345-2345
+            elpaaso-sandbox-ui:
+              guid: 3456-3456-3456-3456
+debug: true
