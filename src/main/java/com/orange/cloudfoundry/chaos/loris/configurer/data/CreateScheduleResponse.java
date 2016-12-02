@@ -12,22 +12,21 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
-import lombok.Builder;
-import lombok.NonNull;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.Value;
 
 import java.net.URI;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 01/12/2016.
  */
 @Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
+public class CreateScheduleResponse implements CreateResponse {
+    @NonNull
+    Schedule schedule;
 
- @NonNull
- private URI location;
+    @NonNull
+    URI location;
 }

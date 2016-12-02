@@ -10,24 +10,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.orange.cloudfoundry.chaos.loris.configurer.data;
+package com.orange.cloudfoundry.chaos.loris.configurer.application;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Data;
-import lombok.Value;
-
-import java.net.URI;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.GlobalConfiguration;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 02/12/2016.
  */
-@Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
+@Service
+@Slf4j
+public class LorisConfigurerService {
 
- @NonNull
- private URI location;
+
+    public void resetChaosLorisConfiguration(){
+
+    }
+
+
+    public void loadChaosLorisConfiguration(GlobalConfiguration globalConfiguration){
+
+
+    }
+
 }

@@ -10,24 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.orange.cloudfoundry.chaos.loris.configurer.data;
+package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Data;
-import lombok.Value;
-
-import java.net.URI;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * @author O Orand
  */
-@Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
 
- @NonNull
- private URI location;
+@Data
+@NoArgsConstructor
+public class Application {
+    @NonNull
+    String guid;
+
+    String name;
+
+    String scheduleName;
+
+    float chaosProbability;
+
+
 }

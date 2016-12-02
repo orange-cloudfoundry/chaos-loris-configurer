@@ -10,24 +10,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.orange.cloudfoundry.chaos.loris.configurer.data;
+package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Data;
-import lombok.Value;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
+import org.springframework.hateoas.PagedResources;
 
 import java.net.URI;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 01/12/2016.
  */
-@Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
+public interface ScheduledClient {
 
- @NonNull
- private URI location;
+    PagedResources<Schedule> getSchedules(int page, int size);
+
+    CreateScheduleResponse create(Schedule schedule);
+
+    void delete(URI location);
 }

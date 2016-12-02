@@ -10,27 +10,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.orange.cloudfoundry.chaos.loris.configurer.client;
+package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.data.Application;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationResponse;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
+import java.net.URI;
+import java.util.Optional;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 29/11/2016.
  */
-@FeignClient(name = "LorisApplications", url = "${chaos.loris.url}")
 public interface ApplicationClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/applications")
-    List<Application> getApplications();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/applications", consumes = "application/json")
-    CreateApplicationResponse create(@PathVariable("applicationId") String appGuid);
+    PagedResources<Application> getApplications(int page, int size);
+
+    CreateApplicationResponse create(CreateApplicationRequest createApplicationRequest);
+
+    void delete(URI location);
+
+    Resource get(URI application);
 
 }
-

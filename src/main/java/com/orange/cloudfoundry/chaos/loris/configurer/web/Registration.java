@@ -12,11 +12,15 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.web;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.client.ApplicationClient;
-import com.orange.cloudfoundry.chaos.loris.configurer.config.ChaosLoris;
-import com.orange.cloudfoundry.chaos.loris.configurer.data.Application;
+//import com.orange.cloudfoundry.chaos.loris.configurer.feign.client.ApplicationClient;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.GlobalConfiguration;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
+import com.orange.cloudfoundry.chaos.loris.configurer.spring.template.ApplicationClient;
+import com.orange.cloudfoundry.chaos.loris.configurer.spring.template.ApplicationHome;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,20 +34,22 @@ import java.util.List;
 @RequestMapping("/")
 @Slf4j
 public class Registration {
-    ApplicationClient applicationClient;
+    ApplicationHome applicationClient;
 
     @Autowired
-    public Registration(ApplicationClient applicationClient, ChaosLoris chaosLoris){
+    public Registration(ApplicationHome applicationClient){
         this.applicationClient=applicationClient;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public void registerApplications(){
         log.info("Existing apps:");
-        List<Application> applications = applicationClient.getApplications();
-        for (Application app :
-                applications) {
-            log.info("\t- {}",app);
-        }
+//        Resource index = ApplicationHome.rootEndpoint();
+//        String applicationUrl= index.getLink("applications").toString();
+//        List<PagedResources<Application>> applications = applicationClient.getApplications();
+//        for (PagedResources<Application> app :
+//                applications) {
+//            log.info("\t- {}",app.toString());
+//        }
     }
 }

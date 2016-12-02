@@ -12,22 +12,25 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Chaos;
 import lombok.Builder;
-import lombok.NonNull;
-import lombok.Data;
 import lombok.Value;
-
-import java.net.URI;
+import org.springframework.hateoas.Link;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 02/12/2016.
  */
-@Value
 @Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
+@Value
+public class CreateChaosRequest implements CreateRequest {
 
- @NonNull
- private URI location;
+    //    The URI of the application to create chaos on 	Must not be null
+    String application;
+
+    //The probability of an instance of the application experiencing chaos 	Must be at least 0,Must be at most 1,Must not be null
+    Float probability;
+
+    //The URI of the schedule to create chaos on
+    String schedule;
+
 }

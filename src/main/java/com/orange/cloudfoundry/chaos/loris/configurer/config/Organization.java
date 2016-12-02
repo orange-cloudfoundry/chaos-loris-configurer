@@ -10,24 +10,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.orange.cloudfoundry.chaos.loris.configurer.data;
+package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import lombok.Builder;
-import lombok.NonNull;
 import lombok.Data;
-import lombok.Value;
 
-import java.net.URI;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 23/11/2016.
  */
-@Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
+@Data
+public class Organization {
 
- @NonNull
- private URI location;
+    private static final String NO_SPACE_ERROR = "Invalid configuration. No space defined";
+
+    @NotNull
+    String guid;
+
+    @NotNull
+    @Size(min = 1, message = NO_SPACE_ERROR)
+    @Valid
+    Map<String,Space> spaces = new HashMap<>();
+
+
 }

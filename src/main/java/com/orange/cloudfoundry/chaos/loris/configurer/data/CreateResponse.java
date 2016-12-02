@@ -12,22 +12,8 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Data;
-import lombok.Value;
-
-import java.net.URI;
-
 /**
- * Created by O. Orand on 21/11/2016.
+ * Created by O. Orand on 02/12/2016.
  */
-@Value
-@Builder
-public class CreateApplicationResponse implements CreateResponse{
- @NonNull
- private String applicationId;
-
- @NonNull
- private URI location;
+public interface CreateResponse {
 }

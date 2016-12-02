@@ -12,7 +12,10 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.data.Organization;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.Organization;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.Schedule;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -26,20 +29,24 @@ import java.util.Map;
 /**
  * Created by O. Orand on 23/11/2016.
  */
-@ConfigurationProperties(prefix = "chaos.loris")
+@ConfigurationProperties
 @Component
-@Setter
-public class ChaosLoris {
+@Data
+public class GlobalConfiguration {
     private static final String NO_ORGANIZATION_ERROR = "Invalid configuration.No organization defined.";
-    @NotNull
+    private static final String NO_SCHEDULE_ERROR = "Invalid configuration. No schedule defined";
+
     String url;
 
     @NotNull
-  //  @Size(min = 1, message = NO_ORGANIZATION_ERROR)
+    @Size(min = 1, message = NO_ORGANIZATION_ERROR)
     @Valid
     Map<String,Organization> organizations=new HashMap<>();
 
-    public ChaosLoris(Map<String,Organization> orgs){
-        this.organizations=orgs;
-    }
+
+    @NotNull
+    @Size(min = 1, message = NO_SCHEDULE_ERROR)
+    @Valid
+    Map<String, Schedule> schedules;
+
 }

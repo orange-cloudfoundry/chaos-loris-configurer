@@ -12,31 +12,19 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Setter;
+import lombok.NonNull;
+import lombok.Value;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Created by O. Orand on 23/11/2016.
+ * Created by O. Orand on 21/11/2016.
  */
-@Data
-public class Space {
+@Builder
+@Value
+public class CreateApplicationRequest implements CreateRequest {
 
-    private static final String NO_APPLICATION_ERROR = "Invalid configuration. No application defined";
-    String guid;
-    String name;
-
-    @Setter(AccessLevel.PACKAGE)
-    @NotNull
-    @Size(min = 1, message = NO_APPLICATION_ERROR)
-    @Valid
-    Map<String, Application> applications = new HashMap<>();
-
+ @NonNull
+ String applicationId;
 }

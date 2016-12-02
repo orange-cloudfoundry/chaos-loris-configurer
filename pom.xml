@@ -24,6 +24,7 @@
 		<java.version>1.8</java.version>
         <cloudfoundry-client.version>2.0.1.RELEASE</cloudfoundry-client.version>
 
+		<spring-cloud-contract-dependencies.version>1.0.2.RELEASE</spring-cloud-contract-dependencies.version>
 	</properties>
 
 	<dependencies>
@@ -54,6 +55,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
+		<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-contract-wiremock</artifactId>
+		</dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -94,16 +99,39 @@
             <!--<version>3.4.1</version>-->
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-standalone</artifactId>
-            <version>2.3.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.github.tomakehurst</groupId>-->
+            <!--<artifactId>wiremock-standalone</artifactId>-->
+            <!--<version>2.3.1</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-jackson</artifactId>
+			<version>9.3.1</version>
+		</dependency>
+		<!-- for feign http proxy setting -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-okhttp</artifactId>
+		</dependency>
+
+	</dependencies>
+
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- If you're adding this dependency explicitly you have to
+				add it *BEFORE* the Release Train BOM-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-dependencies</artifactId>
+				<version>${spring-cloud-contract-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
