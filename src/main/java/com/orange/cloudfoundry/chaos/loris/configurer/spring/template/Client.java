@@ -15,18 +15,27 @@ package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationResponse;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.hateoas.mvc.TypeReferences;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
-import java.util.Optional;
 
 /**
- * Created by O. Orand on 29/11/2016.
+ * Created by O. Orand on 05/12/2016.
  */
-public interface ApplicationClient extends Client<Application,CreateApplicationRequest,CreateApplicationResponse> {
+public interface Client<LorisType,CreateRequest,CreateResponse> {
 
+    PagedResources<LorisType> getAll(int page, int size);
+
+    CreateResponse create(CreateRequest createRequest);
+
+    void delete(URI location);
+
+    Resource get(URI resource);
+
+    PagedResources<LorisType> getPagedResourcesAt(URI location);
 }

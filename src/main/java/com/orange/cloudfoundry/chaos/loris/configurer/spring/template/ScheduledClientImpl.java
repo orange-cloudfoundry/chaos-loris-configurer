@@ -13,6 +13,7 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleResponse;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.TypeReferences;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -35,19 +37,14 @@ import java.net.URI;
  */
 @Slf4j
 @Service
-public class ScheduledClientImpl implements ScheduledClient {
+public class ScheduledClientImpl extends ClientImpl<Schedule> implements ScheduledClient  {
 
-    private final LorisEndpoints lorisEnpoints;
-    RestTemplate restTemplate;
 
-    public ScheduledClientImpl(LorisEndpoints lorisEndpoints, RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient){
-        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory= new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        this.restTemplate=restTemplateBuilder.requestFactory(okHttp3ClientHttpRequestFactory).build();
-        this.lorisEnpoints = lorisEndpoints;
+    public ScheduledClientImpl(LorisEndpoints lorisEndpoints, RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient) {
+        super(lorisEndpoints, restTemplateBuilder, okHttpClient);
     }
 
-    @Override
-    public PagedResources<Schedule> getSchedules(int page, int size) {
+    public PagedResources<Schedule> getAll(int page, int size) {
         ResponseEntity<PagedResources<Schedule>> scheduleResponse = this.restTemplate.exchange(
                 lorisEnpoints.getSchedulesEndpoint().toString()+"?page={page}&size={size}",
                 HttpMethod.GET,
@@ -59,18 +56,18 @@ public class ScheduledClientImpl implements ScheduledClient {
         return scheduleResponse.getBody();    }
 
     @Override
-    public CreateScheduleResponse create(Schedule schedule) {
+    public CreateScheduleResponse create(CreateScheduleRequest scheduleRequest) {
 
         URI applicationsUri = lorisEnpoints.getSchedulesEndpoint();
 
-        URI newApplicationUri=restTemplate.postForLocation(applicationsUri,schedule);
+        URI newApplicationUri=restTemplate.postForLocation(applicationsUri,scheduleRequest);
 
-        return new CreateScheduleResponse(schedule,newApplicationUri);
+        return new CreateScheduleResponse(scheduleRequest.getSchedule(),newApplicationUri);
     }
 
-    @Override
-    public void delete(URI location) {
-        restTemplate.delete(location);
 
+    @Override
+    public Resource get(URI schedule) {
+        return null;
     }
 }

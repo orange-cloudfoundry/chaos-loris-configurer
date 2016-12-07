@@ -15,10 +15,12 @@ package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateChaosRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateChaosResponse;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Chaos;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.TypeReferences;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -31,7 +33,8 @@ import java.net.URI;
  * Created by O. Orand on 01/12/2016.
  */
 @Service
-public class ChaosesClientImpl extends ClientImpl implements ChaosesClient {
+@Slf4j
+public class ChaosesClientImpl extends ClientImpl<Chaos> implements ChaosesClient {
 
 
     public ChaosesClientImpl(LorisEndpoints lorisEndpoints, RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient) {
@@ -39,7 +42,7 @@ public class ChaosesClientImpl extends ClientImpl implements ChaosesClient {
     }
 
     @Override
-    public PagedResources<Chaos> getChaoses(int page, int size) {
+    public PagedResources<Chaos> getAll(int page, int size) {
         ResponseEntity<PagedResources<Chaos>> chaosesResponse = restTemplate.exchange(
                 lorisEnpoints.getChaosesEndpoint().toString()+"?page={page}&size={size}",
                 HttpMethod.GET,
@@ -49,6 +52,7 @@ public class ChaosesClientImpl extends ClientImpl implements ChaosesClient {
                 size);
 
         return chaosesResponse.getBody();    }
+
 
     @Override
     public CreateChaosResponse create(CreateChaosRequest chaosRequest) {
@@ -65,8 +69,4 @@ public class ChaosesClientImpl extends ClientImpl implements ChaosesClient {
     }
 
 
-    @Override
-    void delete(URI location) {
-        super.delete(location);
-    }
 }

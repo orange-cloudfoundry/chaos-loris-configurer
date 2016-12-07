@@ -30,7 +30,7 @@ public class ApplicationClientTest {
     @Test
     public void getApplications() throws Exception {
 
-        PagedResources<Application> pagedApplications = applicationClient.getApplications(0,100);
+        PagedResources<Application> pagedApplications = applicationClient.getAll(0,100);
         assertThat(pagedApplications).isNotNull();
 
         assertThat(pagedApplications.getContent()).isNotNull();
@@ -52,13 +52,13 @@ public class ApplicationClientTest {
     }
 
     private void applicationDoesNotExist(String appUuid) {
-        PagedResources<Application> pagedApplicationsBeforeCreation = applicationClient.getApplications(0,100);
+        PagedResources<Application> pagedApplicationsBeforeCreation = applicationClient.getAll(0,100);
         long appCountBeforeCreation= pagedApplicationsBeforeCreation.getContent().stream().filter(application -> application.getApplicationId().equals(appUuid)).count();
         assertThat(appCountBeforeCreation).isEqualTo(0);
     }
 
     private void applicationExist(String appUuid) {
-        PagedResources<Application> pagedApplicationsAfterCreation = applicationClient.getApplications(0,100);
+        PagedResources<Application> pagedApplicationsAfterCreation = applicationClient.getAll(0,100);
         long appCountAfterCreation= pagedApplicationsAfterCreation.getContent().stream().filter(application -> application.getApplicationId().equals(appUuid)).count();
         assertThat(appCountAfterCreation).isEqualTo(1);
     }

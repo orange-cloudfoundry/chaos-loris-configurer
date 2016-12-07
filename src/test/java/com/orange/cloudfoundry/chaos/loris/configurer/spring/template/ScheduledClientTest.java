@@ -2,6 +2,7 @@ package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleResponse;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class ScheduledClientTest {
     @Test
     public void getSchedules() throws Exception {
 
-        PagedResources<Schedule> pagedSchedules = scheduledClient.getSchedules(0,100);
+        PagedResources<Schedule> pagedSchedules = scheduledClient.getAll(0,100);
         assertThat(pagedSchedules).isNotNull();
 
         assertThat(pagedSchedules.getContent()).isNotNull();
@@ -45,7 +46,7 @@ public class ScheduledClientTest {
 
         scheduleDoesNotExist(schedule);
 
-        CreateScheduleResponse createdSchedule = scheduledClient.create(schedule);
+        CreateScheduleResponse createdSchedule = scheduledClient.create(CreateScheduleRequest.builder().schedule(schedule).build());
 
         scheduleExist(schedule);
 
@@ -63,13 +64,13 @@ public class ScheduledClientTest {
     }
 
     private void scheduleDoesNotExist(Schedule aSchedule) {
-        PagedResources<Schedule> schedules = scheduledClient.getSchedules(0,100);
+        PagedResources<Schedule> schedules = scheduledClient.getAll(0,100);
         long count= schedules.getContent().stream().filter(schedule -> schedule.getName().equals(aSchedule.getName())&&schedule.getExpression().equals(aSchedule.getExpression())).count();
         assertThat(count).isEqualTo(0);
     }
 
     private void scheduleExist(Schedule aSchedule) {
-        PagedResources<Schedule> schedules = scheduledClient.getSchedules(0,100);
+        PagedResources<Schedule> schedules = scheduledClient.getAll(0,100);
         long count= schedules.getContent().stream().filter(schedule -> schedule.getName().equals(aSchedule.getName())&&schedule.getExpression().equals(aSchedule.getExpression())).count();
         assertThat(count).isEqualTo(1);
     }
@@ -77,7 +78,7 @@ public class ScheduledClientTest {
     @Test
     public void delete() throws Exception {
         Schedule schedule = createTestSchedule();
-        CreateScheduleResponse createdSchedule = scheduledClient.create(schedule);
+        CreateScheduleResponse createdSchedule = scheduledClient.create(CreateScheduleRequest.builder().schedule(schedule).build());
 
         scheduleExist(schedule);
 

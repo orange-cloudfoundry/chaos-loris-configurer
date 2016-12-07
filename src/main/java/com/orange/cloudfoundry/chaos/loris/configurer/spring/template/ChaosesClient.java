@@ -20,9 +20,6 @@ import org.springframework.hateoas.PagedResources;
 /**
  * Created by O. Orand on 01/12/2016.
  */
-public interface ChaosesClient {
-    PagedResources<Chaos> getChaoses(int page, int size);
+public interface ChaosesClient extends Client<Chaos,CreateChaosRequest,CreateChaosResponse>{
 
-
-    CreateChaosResponse create(CreateChaosRequest chaosRequest);
 }

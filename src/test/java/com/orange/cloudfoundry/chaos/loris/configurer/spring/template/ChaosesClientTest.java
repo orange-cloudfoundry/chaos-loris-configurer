@@ -3,6 +3,7 @@ package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateChaosRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateChaosResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Chaos;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class ChaosesClientTest {
     @Test
     public void getChaoses() throws Exception {
 
-        PagedResources<Chaos> pagedChaoses = chaosesClient.getChaoses(0,100);
+        PagedResources<Chaos> pagedChaoses = chaosesClient.getAll(0,100);
         assertThat(pagedChaoses).isNotNull();
 
         assertThat(pagedChaoses.getContent()).isNotNull();
@@ -55,7 +56,7 @@ public class ChaosesClientTest {
                 .getLocation().toString();
 
 
-        String scheduleLocation = scheduledClient.create(schedule).getLocation().toString();
+        String scheduleLocation = scheduledClient.create(CreateScheduleRequest.builder().schedule(schedule).build()).getLocation().toString();
         CreateChaosRequest chaosRequest = CreateChaosRequest.builder().application(applicationLocation).schedule(scheduleLocation).probability(0.5f).build();
 
         chaosDoesNotExist(chaosRequest);
@@ -77,7 +78,7 @@ public class ChaosesClientTest {
     }
 
     private void chaosDoesNotExist(CreateChaosRequest chaosRequest) {
-        PagedResources<Chaos> chaoses = chaosesClient.getChaoses(0,100);
+        PagedResources<Chaos> chaoses = chaosesClient.getAll(0,100);
         long count= chaoses.getContent().stream()
                 .filter(
                     chaos -> chaos.getLink("application").getHref().equals(chaosRequest.getApplication())&&
@@ -88,7 +89,7 @@ public class ChaosesClientTest {
     }
 
     private void chaosExist(CreateChaosRequest chaosRequest) {
-        PagedResources<Chaos> chaoses = chaosesClient.getChaoses(0,100);
+        PagedResources<Chaos> chaoses = chaosesClient.getAll(0,100);
         long count= chaoses.getContent().stream()
                 .filter(
                         chaos -> chaos.getLink("application").getHref().equals(chaosRequest.getApplication())&&

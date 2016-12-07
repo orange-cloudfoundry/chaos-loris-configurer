@@ -40,7 +40,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-public class ApplicationClientImpl extends ClientImpl implements ApplicationClient {
+public class ApplicationClientImpl extends ClientImpl<Application> implements ApplicationClient {
 
 
     public ApplicationClientImpl(LorisEndpoints lorisEndpoints,RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient){
@@ -48,7 +48,7 @@ public class ApplicationClientImpl extends ClientImpl implements ApplicationClie
     }
 
     @Override
-    public PagedResources<Application> getApplications(int page,int size) {
+    public PagedResources<Application> getAll(int page, int size) {
         ResponseEntity<PagedResources<Application>> applicationResponse = restTemplate.exchange(
                 lorisEnpoints.getApplicationsEndpoint().toString()+"?page={page}&size={size}",
                 HttpMethod.GET,
@@ -69,14 +69,5 @@ public class ApplicationClientImpl extends ClientImpl implements ApplicationClie
         return CreateApplicationResponse.builder().applicationId(createApplicationRequest.getApplicationId()).location(newApplicationUri).build();
     }
 
-    @Override
-    public void delete(URI location) {
-        super.delete(location);
-    }
-
-    @Override
-    public Resource get(URI application) {
-        return restTemplate.getForObject(application,Resource.class);
-    }
 
 }

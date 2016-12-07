@@ -12,8 +12,15 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.TypeReferences;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,22 +29,35 @@ import java.net.URI;
 /**
  * Created by O. Orand on 01/12/2016.
  */
-public abstract class ClientImpl  {
+public abstract class ClientImpl<LorisType> {
 
 
     protected final RestTemplate restTemplate;
     protected final LorisEndpoints lorisEnpoints;
 
-    public ClientImpl(LorisEndpoints lorisEndpoints, RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient){
-        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory= new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        this.restTemplate=restTemplateBuilder.requestFactory(okHttp3ClientHttpRequestFactory).build();
+    public ClientImpl(LorisEndpoints lorisEndpoints, RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient) {
+        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory = new OkHttp3ClientHttpRequestFactory(okHttpClient);
+        this.restTemplate = restTemplateBuilder.requestFactory(okHttp3ClientHttpRequestFactory).build();
         this.lorisEnpoints = lorisEndpoints;
     }
 
 
-    void delete(URI location){
+    public void delete(URI location) {
         restTemplate.delete(location);
     }
 
+    public Resource get(URI application) {
+        return restTemplate.getForObject(application,Resource.class);
+    }
 
-}
+    public PagedResources<LorisType> getPagedResourcesAt(URI location) {
+            ResponseEntity<PagedResources<LorisType>> applicationResponse = restTemplate.exchange(
+                    location,
+                    HttpMethod.GET,
+                    HttpEntity.EMPTY,
+                    new TypeReferences.PagedResourcesType<LorisType>() {}
+            );
+
+            return applicationResponse.getBody();
+        }
+    }

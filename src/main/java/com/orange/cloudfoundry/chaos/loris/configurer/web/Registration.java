@@ -46,7 +46,7 @@ public class Registration {
         log.info("Existing apps:");
 //        Resource index = ApplicationHome.rootEndpoint();
 //        String applicationUrl= index.getLink("applications").toString();
-//        List<PagedResources<Application>> applications = applicationClient.getApplications();
+//        List<PagedResources<Application>> applications = applicationClient.getAll();
 //        for (PagedResources<Application> app :
 //                applications) {
 //            log.info("\t- {}",app.toString());

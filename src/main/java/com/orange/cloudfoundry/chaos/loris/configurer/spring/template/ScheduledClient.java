@@ -12,7 +12,11 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.spring.template;
 
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleRequest;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateScheduleResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
 import org.springframework.hateoas.PagedResources;
 
@@ -21,11 +25,5 @@ import java.net.URI;
 /**
  * Created by O. Orand on 01/12/2016.
  */
-public interface ScheduledClient {
-
-    PagedResources<Schedule> getSchedules(int page, int size);
-
-    CreateScheduleResponse create(Schedule schedule);
-
-    void delete(URI location);
+public interface ScheduledClient extends Client<Schedule,CreateScheduleRequest,CreateScheduleResponse>{
 }
