@@ -13,25 +13,37 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.application;
 
 import com.orange.cloudfoundry.chaos.loris.configurer.config.GlobalConfiguration;
+import com.orange.cloudfoundry.chaos.loris.configurer.domain.LorisApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by O. Orand on 02/12/2016.
+ * @author O. Orand
  */
 @Service
 @Slf4j
 public class LorisConfigurerService {
 
 
-    public void resetChaosLorisConfiguration(){
+    private final LorisApi lorisApi;
 
+    public LorisConfigurerService(LorisApi lorisApi){
+        this.lorisApi = lorisApi;
+    }
+
+
+    public void resetChaosLorisConfiguration(){
+        lorisApi.resetChaoses();
+        lorisApi.resetApplications();
+        lorisApi.resetSchedules();
     }
 
 
     public void loadChaosLorisConfiguration(GlobalConfiguration globalConfiguration){
-
-
+        throw new RuntimeException("NYI");
     }
 
+    public GlobalConfiguration getChaosLorisConfiguration() {
+        return lorisApi.toGlobaleConfiguration();
+    }
 }

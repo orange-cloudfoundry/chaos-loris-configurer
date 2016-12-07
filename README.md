@@ -21,6 +21,7 @@ ease configuration of chaos-loris
  - [ ] offers configuration service
     - [ ] reset Chaos Loris configuration
     - [ ] load a configuration
+ - [ ] add an configuration exporter to backup manually updated chaos 
  - [ ] use spring-cloud-config to load app config
      - [ ] leverage refresh beans
  - [ ] enable basic auth security     
