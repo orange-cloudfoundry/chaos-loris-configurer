@@ -13,8 +13,9 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.feign.client;
 
 import com.orange.cloudfoundry.chaos.loris.configurer.data.CreateApplicationRequest;
-import com.orange.cloudfoundry.chaos.loris.configurer.feign.client.ApplicationClient;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 
 import java.util.List;
 
@@ -36,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWireMock(port = 0)
+@Ignore(value = "Feign should be removed")
 public class ApplicationClientMockIT {
 
 //    @Rule

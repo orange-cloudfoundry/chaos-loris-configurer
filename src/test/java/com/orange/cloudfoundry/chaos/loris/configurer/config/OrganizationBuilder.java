@@ -12,6 +12,7 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,4 +34,16 @@ public class OrganizationBuilder {
         }
         return org;
     }
+
+    public static Organization buildWith(Space... spaces) {
+        Organization org = new Organization();
+        org.setName("myOrg-" + orgNameCounter.getAndIncrement());
+        org.setGuid(UUID.randomUUID().toString());
+
+        Arrays.asList(spaces).forEach(space -> org.getSpaces().put(space.getName(), space));
+
+        return org;
+    }
+
+
 }

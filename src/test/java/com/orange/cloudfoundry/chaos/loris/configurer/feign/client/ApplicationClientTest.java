@@ -12,8 +12,9 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.feign.client;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.feign.client.ApplicationClient;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Application;
+
 import java.util.List;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by O. Orand on 21/11/2016.
@@ -33,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Slf4j
+@Ignore(value = "Feign should be removed")
 public class ApplicationClientTest {
 
 //    @Rule

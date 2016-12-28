@@ -13,7 +13,6 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
 import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
-import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -25,8 +24,8 @@ import java.net.URI;
 @Value
 public class CreateScheduleResponse implements CreateResponse {
     @NonNull
-    Schedule schedule;
+    private Schedule schedule;
 
     @NonNull
-    URI location;
+    private URI location;
 }

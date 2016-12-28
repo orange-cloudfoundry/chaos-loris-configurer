@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by O. Orand on 23/11/2016.
+ * @author O Orand
  */
 @Data
 public class Organization {
@@ -29,6 +29,8 @@ public class Organization {
     private static final String NO_SPACE_ERROR = "Invalid configuration. No space defined";
 
     @NotNull
+    String name;
+
     String guid;
 
     @NotNull

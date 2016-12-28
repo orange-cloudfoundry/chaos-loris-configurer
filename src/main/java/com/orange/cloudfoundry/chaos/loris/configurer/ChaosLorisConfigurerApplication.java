@@ -7,14 +7,15 @@ import feign.jackson.JacksonDecoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.feign.support.ResponseEntityDecoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.hateoas.LinkDiscoverer;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.hal.HalLinkDiscoverer;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 
 @SpringBootApplication
-@EnableFeignClients
+//@EnableFeignClients
 @Slf4j
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class ChaosLorisConfigurerApplication {
@@ -34,4 +35,9 @@ public class ChaosLorisConfigurerApplication {
         return new ResponseEntityDecoder(new JacksonDecoder(mapper));
     }
 
+
+    @Bean
+    public LinkDiscoverer linkDiscoverer(){
+        return new HalLinkDiscoverer();
+    }
 }

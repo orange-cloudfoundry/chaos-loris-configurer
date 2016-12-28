@@ -24,6 +24,11 @@
     </appender>
 
     <logger name="com.orange.cloudfoundry.chaos.loris.configurer" level="DEBUG"/>
+    <!--<logger name="cloudfoundry-client.request" level="DEBUG"/>-->
+    <!--<logger name="cloudfoundry-client.response" level="DEBUG"/>-->
+
+    <!--<logger name="cloudfoundry-client.token" level="DEBUG"/>-->
+    <logger name="cloudfoundry-client" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

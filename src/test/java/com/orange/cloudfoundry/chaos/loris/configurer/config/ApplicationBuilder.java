@@ -30,4 +30,8 @@ public class ApplicationBuilder {
         return application;
     }
 
+    public static String generateAppName(){
+        return "app-" + appCounter.getAndIncrement();
+    }
+
 }

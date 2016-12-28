@@ -12,10 +12,18 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.application;
 
+import com.orange.cloudfoundry.chaos.loris.configurer.config.Application;
 import com.orange.cloudfoundry.chaos.loris.configurer.config.GlobalConfiguration;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.Organization;
+import com.orange.cloudfoundry.chaos.loris.configurer.config.Space;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CfApplicationRequest;
+import com.orange.cloudfoundry.chaos.loris.configurer.data.CfApplicationResponse;
+import com.orange.cloudfoundry.chaos.loris.configurer.domain.ApplicationGuidService;
 import com.orange.cloudfoundry.chaos.loris.configurer.domain.LorisApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @author O. Orand
@@ -26,9 +34,11 @@ public class LorisConfigurerService {
 
 
     private final LorisApi lorisApi;
+    private final ApplicationGuidService applicationGuidService;
 
-    public LorisConfigurerService(LorisApi lorisApi){
+    public LorisConfigurerService(LorisApi lorisApi, ApplicationGuidService applicationGuidService){
         this.lorisApi = lorisApi;
+        this.applicationGuidService = applicationGuidService;
     }
 
 
@@ -40,8 +50,26 @@ public class LorisConfigurerService {
 
 
     public void loadChaosLorisConfiguration(GlobalConfiguration globalConfiguration){
-        throw new RuntimeException("NYI");
+        Map<CfApplicationRequest, CfApplicationResponse> applicationGuids = applicationGuidService.retrieveGuid(globalConfiguration.getOrganizations());
+        Map<String, Organization> updatedConfig = updateConfigutationWithAppGuid(globalConfiguration.getOrganizations(), applicationGuids);
+        globalConfiguration.setOrganizations(updatedConfig);
+        lorisApi.loadConfiguration(globalConfiguration);
     }
+
+    private Map<String, Organization> updateConfigutationWithAppGuid(Map<String, Organization> organizations, Map<CfApplicationRequest, CfApplicationResponse> applicationGuids) {
+        Map<String, Organization> result= organizations;
+
+        applicationGuids.values().forEach( cfApplicationResponse -> {
+            Organization currentOrg = organizations.get(cfApplicationResponse.getOrganization().getValue());
+            Space currentSpace = currentOrg.getSpaces().get(cfApplicationResponse.getSpace().getValue());
+            Application currentApplication = currentSpace.getApplications().get(cfApplicationResponse.getApplication().getName().getValue());
+            currentApplication.setGuid(cfApplicationResponse.getApplication().getId().getValue());
+
+        });
+
+        return result;
+    }
+
 
     public GlobalConfiguration getChaosLorisConfiguration() {
         return lorisApi.toGlobaleConfiguration();

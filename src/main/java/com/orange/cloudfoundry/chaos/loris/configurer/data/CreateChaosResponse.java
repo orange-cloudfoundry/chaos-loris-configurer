@@ -26,9 +26,9 @@ import java.net.URI;
 @Builder
 public class CreateChaosResponse implements CreateResponse {
     @NonNull
-    Chaos chaos;
+    private Chaos chaos;
 
     @NonNull
-    URI location;
+    private URI location;
 
 }

@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -42,22 +41,22 @@ import java.util.List;
 @Slf4j
 public class OkHttpClientConfig {
 
-    @Value("${chaos.loris.proxyHost:}")
+    @Value("${chaos.loris.proxy.host:}")
     private String proxyHost;
-    @Value("${chaos.loris.proxyPort:0}")
+    @Value("${chaos.loris.proxy.port:0}")
     private int proxyPort;
 
     private static final Interceptor LOGGING_INTERCEPTOR = chain -> {
         Request request = chain.request();
 
         long t1 = System.nanoTime();
-        log.info(String.format("Sending request %s on %s%n%s",
+        log.debug(String.format("Sending request %s on %s%n%s",
                 request.url(), chain.connection(), request.headers()));
 
         Response response = chain.proceed(request);
 
         long t2 = System.nanoTime();
-        log.info(String.format("Received response for %s in %.1fms%n%s",
+        log.debug(String.format("Received response for %s in %.1fms%n%s",
                 response.request().url(), (t2 - t1) / 1e6d, response.headers()));
 
         return response;

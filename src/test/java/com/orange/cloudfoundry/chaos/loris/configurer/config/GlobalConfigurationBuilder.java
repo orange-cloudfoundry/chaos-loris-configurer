@@ -1,7 +1,7 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
 
-import lombok.Builder;
+import java.util.Arrays;
 
 /**
  * @author O. Orand
@@ -16,6 +16,20 @@ public class GlobalConfigurationBuilder {
             org = OrganizationBuilder.defaultOrg(spacePerOrg,appPerSpace);
             globalConfiguration.getOrganizations().put(org.getName(), org);
         }
+
+        Schedule schedule= ScheduleBuilder.atNoon();
+        globalConfiguration.getSchedules().put(schedule.getName(),schedule);
+
+        return globalConfiguration;
+    }
+
+
+    public static GlobalConfiguration buildWith(Organization... organizations) {
+        GlobalConfiguration globalConfiguration = new GlobalConfiguration();
+
+        Arrays.asList(organizations).forEach( organization ->
+                globalConfiguration.getOrganizations().put(organization.getName(), organization)
+        );
 
         Schedule schedule= ScheduleBuilder.atNoon();
         globalConfiguration.getSchedules().put(schedule.getName(),schedule);

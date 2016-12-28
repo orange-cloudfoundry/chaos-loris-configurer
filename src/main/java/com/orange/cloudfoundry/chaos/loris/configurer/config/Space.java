@@ -12,10 +12,7 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.config.Application;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by O. Orand on 23/11/2016.
+ * @author O Orand
  */
 @Data
 public class Space {
@@ -32,11 +29,10 @@ public class Space {
     private static final String NO_APPLICATION_ERROR = "Invalid configuration. No application defined";
 
     @NotNull
-    String guid;
-
     String name;
 
-    @Setter(AccessLevel.PACKAGE)
+    String guid;
+
     @NotNull
     @Size(min = 1, message = NO_APPLICATION_ERROR)
     @Valid

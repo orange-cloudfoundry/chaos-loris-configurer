@@ -12,6 +12,7 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,4 +34,22 @@ public class SpaceBuilder {
         }
         return space;
     }
+
+
+    public static Space buildWith(Application... applications) {
+        Space space = new Space();
+        space.setName("mySpace-" + spaceNameCounter.getAndIncrement());
+        space.setGuid(UUID.randomUUID().toString());
+
+         Arrays.asList(applications).forEach(app -> space.getApplications().put(app.getName(), app));
+
+        return space;
+    }
+
+
+    public static String generateSpaceName(){
+        return "app-" + spaceNameCounter.getAndIncrement();
+    }
+
+
 }

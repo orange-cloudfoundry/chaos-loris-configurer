@@ -12,8 +12,10 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author O Orand
@@ -22,9 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Data
 @NoArgsConstructor
 public class Application {
-    @NonNull
     String guid;
 
+    @NotNull
     String name;
 
     String scheduleName;

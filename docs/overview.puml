@@ -1,0 +1,23 @@
+@startuml
+
+actor Bot
+participant "Chaos-Loris-Configurer" as CLC
+participant "Chaos-Loris" as CL
+participant "Cloudfoundry" as CF
+participant "GitRepo" as Git
+
+activate CLC
+CLC -> CLC : init
+CLC -> Git : getConfig
+Git --> CLC
+CLC -> CF : loginAsAdmin
+activate CF
+CF --> CLC : oauth token
+
+CLC -> CF : retreiveAppGuid(config)
+CF --> CLC:
+
+CLC -> CL : loadConfig
+
+
+@enduml

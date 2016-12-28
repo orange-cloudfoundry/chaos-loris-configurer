@@ -1,0 +1,58 @@
+logging:
+  level:
+    com.orange.cloudfoundry.chaos.loris.configurer.spring.config.OkHttpClientConfig: DEBUG
+cf:
+  trustSelfSignedCertificates: true
+  apiHost: api.cloudfoundry.net
+  username: myUser
+  password: myPassword
+  proxy:
+    enable: false
+    host: localhost
+chaos:
+  loris:
+    url: http://chaos-loris.net
+    proxy:
+      host: localhost
+      port: 3128
+    applications:
+      rel : applications
+    chaoses:
+      rel: chaoses
+    events:
+      rel: events
+    schedules:
+      rel: schedules
+
+
+organizations:
+  orange:
+    name: orange
+    spaces:
+      elpaaso-sandbox-qa:
+        name: elpaaso-sandbox-qa
+        applications:
+          sandbox-service-qa:
+            name: sandbox-service-qa
+            scheduleName: hourly
+            chaosProbability: 0.5
+          sandbox-ui-qa:
+            name: sandbox-ui-qa
+            scheduleName: hourly
+            chaosProbability: 0.5
+      cf-webui-ic:
+        name: cf-webui-ic
+        applications:
+          cf-webui:
+            name: cf-webui
+            scheduleName: hourly
+            chaosProbability: 0.5
+schedules:
+  hourly:
+    expression: "0 0 * * * *"
+  midnight:
+    expression: "0 * 0 * * *"
+  weekend-midnight:
+    expression: "0 * 0 * * SAT-SUN"
+
+

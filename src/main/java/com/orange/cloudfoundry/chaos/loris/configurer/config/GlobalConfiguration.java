@@ -12,11 +12,7 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.config;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.config.Organization;
-import com.orange.cloudfoundry.chaos.loris.configurer.config.Schedule;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by O. Orand on 23/11/2016.
+ * @author O Orand
  */
 @ConfigurationProperties
 @Component
@@ -47,6 +43,6 @@ public class GlobalConfiguration {
     @NotNull
     @Size(min = 1, message = NO_SCHEDULE_ERROR)
     @Valid
-    Map<String, Schedule> schedules;
+    Map<String, Schedule> schedules= new HashMap<>();
 
 }

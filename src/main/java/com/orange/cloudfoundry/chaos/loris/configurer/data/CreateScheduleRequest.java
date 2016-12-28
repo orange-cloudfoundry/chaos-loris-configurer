@@ -12,7 +12,6 @@
  */
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
-import com.orange.cloudfoundry.chaos.loris.configurer.data.loris.Schedule;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -25,5 +24,8 @@ import lombok.NonNull;
 public class CreateScheduleRequest implements  CreateRequest{
 
     @NonNull
-    Schedule schedule;
+    private String expression;
+
+    @NonNull
+    private String name;
 }

@@ -1,3 +1,14 @@
+logging:
+  level:
+    com.orange.cloudfoundry.chaos.loris.configurer.spring.config.OkHttpClientConfig: INFO
+cf:
+  trustSelfSignedCertificates: true
+  apiHost: api.cloudfoundry.net
+  username: myUser
+  password: myPassword
+  proxy:
+    enable: false
+    host: localhost
 
 chaos:
   loris:
@@ -11,28 +22,36 @@ chaos:
     schedules:
       rel: schedules
 
+
+
 organizations:
-  system_domain:
-    guid: "0123-0123-0123-0123"
+  orange:
+    name: orange
     spaces:
-      elpaaso-sandbox:
-        guid: "1234-1234-1234-1234"
+      elpaaso-sandbox-qa:
+        name: elpaaso-sandbox-qa
         applications:
-          elpaaso-sandbox-service:
-            guid: "2345-2345-2345-2345"
-          elpaaso-sandbox-ui:
-            guid: "3456-3456-3456-3456"
-      cf-web-ui:
-        guid: "9999-9999-9999-9999"
+          sandbox-service-qa:
+            name: sandbox-service-qa
+            scheduleName: hourly
+            chaosProbability: 0.5
+          sandbox-ui-qa:
+            name: sandbox-ui-qa
+            scheduleName: hourly
+            chaosProbability: 0.5
+      cf-webui-ic:
+        name: cf-web-ui-ic
         applications:
-          cf-console:
-            guid: "xx12-1234-1234-1234"
+          cf-webui:
+            name: cf-webui
+            scheduleName: hourly
+            chaosProbability: 0.5
 schedules:
   hourly:
     expression: "0 0 * * * *"
-    name: hourly
   midnight:
     expression: "0 * 0 * * *"
   weekend-midnight:
     expression: "0 * 0 * * SAT-SUN"
+
 

@@ -13,7 +13,6 @@
 package com.orange.cloudfoundry.chaos.loris.configurer.data;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -26,5 +25,5 @@ import lombok.Value;
 public class CreateApplicationRequest implements CreateRequest {
 
  @NonNull
- String applicationId;
+ private String applicationId;
 }

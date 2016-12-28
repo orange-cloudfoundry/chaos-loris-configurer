@@ -25,4 +25,6 @@ public interface LorisApi {
     void resetSchedules();
 
     GlobalConfiguration toGlobaleConfiguration();
+
+    void loadConfiguration(GlobalConfiguration configuration);
 }
