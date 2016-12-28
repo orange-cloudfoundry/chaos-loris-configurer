@@ -1,4 +1,4 @@
-elpaaso-sandbox-service
+chaos-loris-configurer
 
 Copyright (c) 2016-2017 Orange All Rights Reserved.
 
