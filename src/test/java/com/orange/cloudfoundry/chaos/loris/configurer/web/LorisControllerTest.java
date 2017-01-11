@@ -14,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,6 +36,9 @@ public class LorisControllerTest {
 
     @MockBean
     GlobalConfiguration globalConfiguration;
+
+    @MockBean
+    RestTemplate restTemplate;
 
     @Autowired
     MockMvc mockMvc;

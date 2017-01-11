@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.LinkDiscoverer;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
@@ -27,9 +28,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Created by O. Orand on 01/12/2016.
+ * @author O Orand
  */
-//@Configuration
+@RefreshScope
 @Service
 @Slf4j
 public class LorisEndpoints {
@@ -55,9 +56,8 @@ public class LorisEndpoints {
 
     private final RestTemplate restTemplate;
 
-    public LorisEndpoints(RestTemplateBuilder restTemplateBuilder, OkHttpClient okHttpClient, LinkDiscoverer linkDiscoverer){
-        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory= new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        this.restTemplate=restTemplateBuilder.requestFactory(okHttp3ClientHttpRequestFactory).build();
+    public LorisEndpoints(RestTemplate restTemplate, LinkDiscoverer linkDiscoverer){
+        this.restTemplate=restTemplate;
         this.linkDiscoverer = linkDiscoverer;
     }
 
