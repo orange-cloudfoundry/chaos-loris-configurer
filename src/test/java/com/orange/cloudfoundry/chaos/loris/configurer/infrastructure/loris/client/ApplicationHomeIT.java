@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ApplicationHomeTest {
+public class ApplicationHomeIT {
 
     @Autowired
     ApplicationHome applicationHome;

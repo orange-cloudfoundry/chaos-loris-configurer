@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ApplicationClientTest {
+public class ApplicationClientIT {
 
     @Autowired
     ApplicationClient applicationClient;

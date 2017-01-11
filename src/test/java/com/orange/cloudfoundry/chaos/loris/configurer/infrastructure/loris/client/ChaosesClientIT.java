@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ChaosesClientTest {
+public class ChaosesClientIT {
 
     @Autowired
     ChaosesClient chaosesClient;
@@ -79,7 +79,7 @@ public class ChaosesClientTest {
         String name = "schedule-"+System.currentTimeMillis();
         Schedule schedule =  new Schedule();
         schedule.setName(name);
-        schedule.setExpression(ScheduledClientTest.HOURLY_EXPRESSION);
+        schedule.setExpression(ScheduledClientIT.HOURLY_EXPRESSION);
         return schedule;
     }
 

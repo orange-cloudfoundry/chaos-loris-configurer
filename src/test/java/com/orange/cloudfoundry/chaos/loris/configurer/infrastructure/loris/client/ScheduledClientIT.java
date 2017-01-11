@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ScheduledClientTest {
+public class ScheduledClientIT {
     final public static String HOURLY_EXPRESSION = "0 0 * * * *";
 
     @Autowired

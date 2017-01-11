@@ -23,11 +23,11 @@ import java.net.URI;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Created by O. Orand on 01/12/2016.
+ * @author O. Orand
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class LorisEndpointsTest {
+public class LorisEndpointsIT {
 
     @Autowired
     LorisEndpoints lorisEndpoints;
@@ -48,7 +48,8 @@ public class LorisEndpointsTest {
         URI eventsUri = lorisEndpoints.getEventsEndpoint();
         assertThat(eventsUri).isNotNull();
 
-
-
     }
+
+
+
 }
