@@ -159,6 +159,7 @@ public class LorisApiImplTest {
     }
 
     @Test
+    @Ignore("Not yet implemented")
     public void toGlobaleConfiguration() throws Exception {
         fail("NYI");
 
